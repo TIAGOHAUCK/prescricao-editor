@@ -9,6 +9,11 @@ interface PacienteInfoFieldsProps {
 }
 
 const PacienteInfoFields: React.FC<PacienteInfoFieldsProps> = ({ control, errors }) => {
+  const handleDateChange = (field: any, value: string) => {
+    console.log('Campo de data alterado:', field.name, 'Valor:', value);
+    field.onChange(value);
+  };
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       <TextField
@@ -28,23 +33,37 @@ const PacienteInfoFields: React.FC<PacienteInfoFieldsProps> = ({ control, errors
           error={!!errors.idade}
           helperText={errors.idade?.message}
         />
-        <TextField
-          {...control.register('dih')}
-          label="DIH"
-          type="date"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          error={!!errors.dih}
-          helperText={errors.dih?.message}
+        <Controller
+          name="dih"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="DIH"
+              type="date"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              error={!!errors.dih}
+              helperText={errors.dih?.message}
+              onChange={(e) => handleDateChange(field, e.target.value)}
+            />
+          )}
         />
-        <TextField
-          {...control.register('dataHoje')}
-          label="Data de Hoje"
-          type="date"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          error={!!errors.dataHoje}
-          helperText={errors.dataHoje?.message}
+        <Controller
+          name="dataHoje"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              label="Data de Hoje"
+              type="date"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              error={!!errors.dataHoje}
+              helperText={errors.dataHoje?.message}
+              onChange={(e) => handleDateChange(field, e.target.value)}
+            />
+          )}
         />
       </Box>
 

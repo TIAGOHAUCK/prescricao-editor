@@ -137,6 +137,11 @@ export const usePrescricaoForm = ({ initialData }: UsePrescricaoFormProps = {}) 
     try {
       setIsLoading(true);
       
+      console.log('Dados do formulário antes da conversão:', {
+        dih: data.dih,
+        dataHoje: data.dataHoje
+      });
+      
       // Converter FormData para PrescricaoData
       const prescricaoData: PrescricaoData = {
         nomePaciente: data.nomePaciente,
@@ -154,6 +159,11 @@ export const usePrescricaoForm = ({ initialData }: UsePrescricaoFormProps = {}) 
         condutas: data.condutas,
         medicamentos: data.medicamentos
       };
+
+      console.log('Dados convertidos para PrescricaoData:', {
+        dataInternacao: prescricaoData.dataInternacao,
+        dataHoje: prescricaoData.dataHoje
+      });
 
       await gerarPrescricao(prescricaoData);
       await adicionarInternacao({

@@ -4,14 +4,29 @@ import { PrescricaoData, Medicamento } from '../types/prescricao';
 import { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType } from 'docx';
 
 const formatarData = (dataString: string): string => {
+  console.log('Data recebida:', dataString);
+  console.log('Tipo da data:', typeof dataString);
+  
   try {
     if (!dataString) return '';
-    // Remove qualquer parte da hora que possa existir
-    const dataLimpa = dataString.split('T')[0];
-    // Divide a data em partes
-    const [ano, mes, dia] = dataLimpa.split('-');
-    // Retorna no formato DD/MM/YYYY
-    return `${dia}/${mes}/${ano}`;
+    
+    // Se a data já estiver no formato DD/MM/YYYY, retorna como está
+    if (dataString.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+      console.log('Data já está no formato correto:', dataString);
+      return dataString;
+    }
+
+    // Tenta converter a data
+    const data = new Date(dataString);
+    console.log('Data convertida:', data);
+    
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    
+    const dataFormatada = `${dia}/${mes}/${ano}`;
+    console.log('Data formatada:', dataFormatada);
+    return dataFormatada;
   } catch (error) {
     console.error('Erro ao formatar data:', error);
     return dataString;
@@ -44,6 +59,11 @@ const loadModelFile = async () => {
 
 export const generatePrescricao = async (data: PrescricaoData): Promise<Blob> => {
   try {
+    console.log('Dados recebidos em generatePrescricao:', {
+      dataInternacao: data.dataInternacao,
+      dataHoje: data.dataHoje
+    });
+    
     // Carregar o modelo fixo
     console.log('Iniciando carregamento do modelo...');
     const arrayBuffer = await loadModelFile();
@@ -94,7 +114,10 @@ export const generatePrescricao = async (data: PrescricaoData): Promise<Blob> =>
       }), {})
     };
 
-    console.log('Dados preparados para o template');
+    console.log('Dados preparados para o template:', {
+      dataInternacao: templateData.dataInternacao,
+      dataHoje: templateData.dataHoje
+    });
 
     // Renderizar o documento
     doc.setData(templateData);
