@@ -4,12 +4,14 @@ import { PrescricaoData, Medicamento } from '../types/prescricao';
 import { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType } from 'docx';
 
 const formatarData = (dataString: string): string => {
-  if (!dataString) return '';
-  const data = new Date(dataString);
-  const dia = String(data.getDate()).padStart(2, '0');
-  const mes = String(data.getMonth() + 1).padStart(2, '0');
-  const ano = data.getFullYear();
-  return `${dia}/${mes}/${ano}`;
+  try {
+    if (!dataString) return '';
+    const [ano, mes, dia] = dataString.split('-');
+    return `${dia}/${mes}/${ano}`;
+  } catch (error) {
+    console.error('Erro ao formatar data:', error);
+    return dataString;
+  }
 };
 
 const loadModelFile = async () => {
