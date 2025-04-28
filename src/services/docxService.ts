@@ -6,7 +6,11 @@ import { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, Width
 const formatarData = (dataString: string): string => {
   try {
     if (!dataString) return '';
-    const [ano, mes, dia] = dataString.split('-');
+    // Remove qualquer parte da hora que possa existir
+    const dataLimpa = dataString.split('T')[0];
+    // Divide a data em partes
+    const [ano, mes, dia] = dataLimpa.split('-');
+    // Retorna no formato DD/MM/YYYY
     return `${dia}/${mes}/${ano}`;
   } catch (error) {
     console.error('Erro ao formatar data:', error);
