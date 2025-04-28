@@ -141,8 +141,8 @@ export const usePrescricaoForm = ({ initialData }: UsePrescricaoFormProps = {}) 
       const prescricaoData: PrescricaoData = {
         nomePaciente: data.nomePaciente,
         idade: String(data.idade),
-        dataInternacao: new Date().toISOString(),
-        dataHoje: new Date().toISOString(),
+        dataInternacao: data.dih,
+        dataHoje: data.dataHoje,
         diagnostico: data.diagnostico,
         alergias: data.alergias,
         origem: data.origem,
@@ -158,7 +158,7 @@ export const usePrescricaoForm = ({ initialData }: UsePrescricaoFormProps = {}) 
       await gerarPrescricao(prescricaoData);
       await adicionarInternacao({
         pacienteId: data.nomePaciente,
-        data: new Date().toISOString(),
+        data: data.dataHoje,
         descricao: `Prescrição gerada - ${data.diagnostico}`
       });
 

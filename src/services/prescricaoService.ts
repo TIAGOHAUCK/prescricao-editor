@@ -7,7 +7,8 @@ export const gerarPrescricao = async (data: PrescricaoData): Promise<boolean> =>
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `prescricao_${data.nomePaciente}_${data.dataHoje}.docx`;
+    const dataFormatada = data.dataHoje.replace(/\//g, '-');
+    link.download = `prescricao_${data.nomePaciente}_${dataFormatada}.docx`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -21,7 +22,10 @@ export const gerarPrescricao = async (data: PrescricaoData): Promise<boolean> =>
 
 export const gerarPrescricaoService = async (formData: PrescricaoData): Promise<void> => {
   try {
-    await gerarPrescricao(formData);
+    const sucesso = await gerarPrescricao(formData);
+    if (!sucesso) {
+      throw new Error('Falha ao gerar prescrição');
+    }
   } catch (error) {
     console.error('Erro ao gerar prescrição:', error);
     throw error;
