@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/prescricao-editor/static/js/main.2eec5a01.js",
+    "index.html": "/prescricao-editor/index.html",
+    "main.2eec5a01.js.map": "/prescricao-editor/static/js/main.2eec5a01.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.2eec5a01.js"
+  ]
+}
