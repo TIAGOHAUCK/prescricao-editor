@@ -3,11 +3,21 @@ import Docxtemplater from 'docxtemplater';
 import { PrescricaoData, Medicamento } from '../types/prescricao';
 import { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType } from 'docx';
 
+const formatarData = (dataString: string): string => {
+  if (!dataString) return '';
+  const data = new Date(dataString);
+  const dia = String(data.getDate()).padStart(2, '0');
+  const mes = String(data.getMonth() + 1).padStart(2, '0');
+  const ano = data.getFullYear();
+  return `${dia}/${mes}/${ano}`;
+};
+
 const loadModelFile = async () => {
+  const baseUrl = process.env.PUBLIC_URL || '';
   const paths = [
-    '/modelo-prescricao.docx', // Local development
-    '/prescricao-editor/modelo-prescricao.docx', // GitHub Pages
-    'modelo-prescricao.docx' // Fallback
+    `${baseUrl}/modelo-prescricao.docx`,
+    `${baseUrl}/prescricao-editor/modelo-prescricao.docx`,
+    'modelo-prescricao.docx'
   ];
 
   for (const path of paths) {
@@ -57,8 +67,8 @@ export const generatePrescricao = async (data: PrescricaoData): Promise<Blob> =>
     const templateData = {
       nomePaciente: data.nomePaciente,
       idade: data.idade,
-      dataInternacao: data.dataInternacao,
-      dataHoje: data.dataHoje,
+      dataInternacao: formatarData(data.dataInternacao),
+      dataHoje: formatarData(data.dataHoje),
       diagnostico: data.diagnostico,
       alergias: data.alergias || 'Nenhuma',
       origem: data.origem,
