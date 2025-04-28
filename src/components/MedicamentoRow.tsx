@@ -47,6 +47,17 @@ const MedicamentoRow: React.FC<MedicamentoRowProps> = ({
             label="Nome"
             value={medicamento.nome}
             disabled
+            InputLabelProps={{
+              shrink: true,
+            }}
+            sx={{
+              '& .MuiInputLabel-root': {
+                transform: 'translate(14px, -9px) scale(0.75)',
+              },
+              '& .MuiInputBase-root': {
+                marginTop: '16px',
+              }
+            }}
           />
         </Grid>
         <Grid item xs={2}>
@@ -62,6 +73,17 @@ const MedicamentoRow: React.FC<MedicamentoRowProps> = ({
                 error={!!errors.medicamentos?.[index]?.dosagem}
                 helperText={errors.medicamentos?.[index]?.dosagem?.message}
                 disabled={!medicamento.variacoes?.dosagem}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                sx={{
+                  '& .MuiInputLabel-root': {
+                    transform: 'translate(14px, -9px) scale(0.75)',
+                  },
+                  '& .MuiInputBase-root': {
+                    marginTop: '16px',
+                  }
+                }}
               >
                 {medicamento.variacoes?.dosagem?.map((dosagem) => (
                   <MenuItem key={dosagem} value={dosagem}>
@@ -85,6 +107,17 @@ const MedicamentoRow: React.FC<MedicamentoRowProps> = ({
                 error={!!errors.medicamentos?.[index]?.via}
                 helperText={errors.medicamentos?.[index]?.via?.message}
                 disabled={!medicamento.variacoes?.via}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                sx={{
+                  '& .MuiInputLabel-root': {
+                    transform: 'translate(14px, -9px) scale(0.75)',
+                  },
+                  '& .MuiInputBase-root': {
+                    marginTop: '16px',
+                  }
+                }}
               >
                 {medicamento.variacoes?.via?.map((via) => (
                   <MenuItem key={via} value={via}>
@@ -108,6 +141,17 @@ const MedicamentoRow: React.FC<MedicamentoRowProps> = ({
                 error={!!errors.medicamentos?.[index]?.posologia}
                 helperText={errors.medicamentos?.[index]?.posologia?.message}
                 disabled={!medicamento.variacoes?.posologia}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                sx={{
+                  '& .MuiInputLabel-root': {
+                    transform: 'translate(14px, -9px) scale(0.75)',
+                  },
+                  '& .MuiInputBase-root': {
+                    marginTop: '16px',
+                  }
+                }}
               >
                 {medicamento.variacoes?.posologia?.map((posologia) => (
                   <MenuItem key={posologia} value={posologia}>
@@ -134,6 +178,17 @@ const MedicamentoRow: React.FC<MedicamentoRowProps> = ({
                   field.onChange(e);
                 }}
                 value={isAntibiotico && obsContemIn ? `IN ${getDataAtual()}` : field.value}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                sx={{
+                  '& .MuiInputLabel-root': {
+                    transform: 'translate(14px, -9px) scale(0.75)',
+                  },
+                  '& .MuiInputBase-root': {
+                    marginTop: '16px',
+                  }
+                }}
               />
             )}
           />
@@ -142,7 +197,7 @@ const MedicamentoRow: React.FC<MedicamentoRowProps> = ({
           <IconButton 
             color="error" 
             onClick={() => onRemoveMedicamento(index)}
-            sx={{ mt: 1 }}
+            sx={{ mt: 3 }}
           >
             <DeleteIcon />
           </IconButton>
