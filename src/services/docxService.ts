@@ -7,7 +7,8 @@ export const generatePrescricao = async (data: PrescricaoData): Promise<Blob> =>
   try {
     // Carregar o modelo fixo
     console.log('Tentando carregar o modelo...');
-    const response = await fetch('/MODELO PRESCRIÇÃO NOVO1.docx');
+    const baseUrl = process.env.PUBLIC_URL || '';
+    const response = await fetch(`${baseUrl}/MODELO PRESCRIÇÃO NOVO1.docx`);
     if (!response.ok) {
       console.error('Erro ao carregar modelo:', response.status, response.statusText);
       throw new Error(`Não foi possível carregar o modelo de prescrição: ${response.statusText}`);
