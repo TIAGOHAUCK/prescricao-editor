@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/prescricao-editor/static/js/main.658b4f4a.js",
+    "static/media/banner.png": "/prescricao-editor/static/media/banner.8200f34d23aed162b78d.png",
+    "index.html": "/prescricao-editor/index.html",
+    "main.658b4f4a.js.map": "/prescricao-editor/static/js/main.658b4f4a.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.658b4f4a.js"
+  ]
+}
