@@ -1,6 +1,8 @@
-import React from 'react';
-import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Box, Container } from '@mui/material';
+import React, { useState } from 'react';
+import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Box, Container, Tabs, Tab } from '@mui/material';
 import PrescricaoForm from './components/PrescricaoForm';
+import MedicacaoManager from './components/MedicacaoManager';
+import Banner from './components/Banner';
 
 const theme = createTheme({
   palette: {
@@ -25,8 +27,8 @@ const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          background: 'linear-gradient(45deg, #1976d2 30%, #2196f3 90%)',
-          boxShadow: '0 3px 5px 2px rgba(0, 0, 0, 0.1)',
+          backgroundColor: '#1976d2',
+          boxShadow: 'none',
         },
       },
     },
@@ -42,22 +44,30 @@ const theme = createTheme({
 });
 
 const App: React.FC = () => {
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setCurrentTab(newValue);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ flexGrow: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h4" component="div" sx={{ flexGrow: 1, textAlign: 'center', color: 'white' }}>
-              EDITOR EVOLUÇÕES CLÍNICAS MÉDICAS
-            </Typography>
+        <AppBar position="static" sx={{ backgroundColor: '#1976d2' }}>
+          <Toolbar sx={{ minHeight: 'auto', padding: 0 }}>
+            <Banner />
           </Toolbar>
-          <Typography variant="subtitle1" component="div" sx={{ textAlign: 'center', color: 'white', pb: 1 }}>
-            Dr. Aurélio
-          </Typography>
         </AppBar>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4, flex: 1 }}>
-          <PrescricaoForm />
+          <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+            <Tabs value={currentTab} onChange={handleTabChange} centered>
+              <Tab label="Prescrição" />
+              <Tab label="Gerenciar Medicações" />
+            </Tabs>
+          </Box>
+          {currentTab === 0 && <PrescricaoForm />}
+          {currentTab === 1 && <MedicacaoManager />}
         </Container>
       </Box>
     </ThemeProvider>

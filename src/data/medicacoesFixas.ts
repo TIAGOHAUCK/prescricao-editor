@@ -373,7 +373,7 @@ export const medicacoesFixas: MedicamentoFixo[] = [
     via: 'ORAL',
     posologia: '8/8H',
     obs: '12/12H / ACM',
-    categoria: 'ANTIHIPERTENSIVOS',
+    categoria: 'Anti-hipertensivos',
     prioridade: 'ALTA' as const,
     variacoes: {
       posologia: ['8/8H', '12/12H', 'SE PA>180/100mmHg']

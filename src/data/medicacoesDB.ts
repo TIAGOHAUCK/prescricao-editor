@@ -35,7 +35,7 @@ export const medicacoesPorCategoria: CategoriaItem[] = [
         dosagem: '600MG',
         via: 'VENOSA',
         posologia: '8/8H',
-        obs: 'IN XX/XX',
+        obs: '',
         categoria: 'ANTIBIÓTICOS',
         prioridade: 'ALTA',
         variacoes: {
@@ -43,7 +43,7 @@ export const medicacoesPorCategoria: CategoriaItem[] = [
           dosagem: ['600MG'],
           via: ['VENOSA'],
           posologia: ['8/8H'],
-          obs: ['IN XX/XX']
+          obs: ['']
         }
       },
       {
@@ -52,7 +52,7 @@ export const medicacoesPorCategoria: CategoriaItem[] = [
         dosagem: '500MG',
         via: 'ORAL',
         posologia: '1X/DIA',
-        obs: 'IN XX/XX',
+        obs: '',
         categoria: 'ANTIBIÓTICOS',
         prioridade: 'ALTA',
         variacoes: {
@@ -60,7 +60,7 @@ export const medicacoesPorCategoria: CategoriaItem[] = [
           dosagem: ['500MG'],
           via: ['ORAL'],
           posologia: ['1X/DIA'],
-          obs: ['IN XX/XX']
+          obs: ['']
         }
       },
       {
@@ -69,7 +69,7 @@ export const medicacoesPorCategoria: CategoriaItem[] = [
         dosagem: '500MG',
         via: 'VENOSA',
         posologia: '12/12H',
-        obs: 'IN XX/XX',
+        obs: '',
         categoria: 'ANTIBIÓTICOS',
         prioridade: 'ALTA',
         variacoes: {
@@ -77,7 +77,7 @@ export const medicacoesPorCategoria: CategoriaItem[] = [
           dosagem: ['500MG'],
           via: ['VENOSA'],
           posologia: ['12/12H'],
-          obs: ['IN XX/XX']
+          obs: ['']
         }
       },
       {
@@ -377,13 +377,81 @@ export const medicacoesPorCategoria: CategoriaItem[] = [
         via: 'ORAL',
         posologia: '8/8H',
         obs: '12/12H',
-        categoria: 'ANTIHIPERTENSIVOS',
+        categoria: 'ANTI-HIPERTENSIVO',
         prioridade: 'ALTA',
         variacoes: {
           nome: ['CAPTOPRIL'],
           dosagem: ['50MG'],
           via: ['ORAL'],
           posologia: ['8/8H', '12/12H', 'SE PA>180/100mmHg'],
+          obs: ['12/12H', 'ACM']
+        }
+      },
+      {
+        id: uuidv4(),
+        nome: 'LOSARTANA',
+        dosagem: '50MG',
+        via: 'ORAL',
+        posologia: '8/8H',
+        obs: '12/12H',
+        categoria: 'ANTI-HIPERTENSIVO',
+        prioridade: 'ALTA',
+        variacoes: {
+          nome: ['LOSARTANA'],
+          dosagem: ['50MG'],
+          via: ['ORAL'],
+          posologia: ['8/8H', '12/12H', 'SE PA>180/100mmHg'],
+          obs: ['12/12H', 'ACM']
+        }
+      },
+      {
+        id: uuidv4(),
+        nome: 'NIFEDIPINO',
+        dosagem: '50MG',
+        via: 'ORAL',
+        posologia: '8/8H',
+        obs: '12/12H',
+        categoria: 'ANTI-HIPERTENSIVO',
+        prioridade: 'ALTA',
+        variacoes: {
+          nome: ['NIFEDIPINO'],
+          dosagem: ['50MG'],
+          via: ['ORAL'],
+          posologia: ['8/8H', '12/12H', 'SE PA>180/100mmHg'],
+          obs: ['12/12H', 'ACM']
+        }
+      },
+      {
+        id: uuidv4(),
+        nome: 'FUROSEMIDA',
+        dosagem: '1 AMP',
+        via: 'ORAL',
+        posologia: '8/8H',
+        obs: '12/12H',
+        categoria: 'ANTI-HIPERTENSIVO',
+        prioridade: 'ALTA',
+        variacoes: {
+          nome: ['FUROSEMIDA'],
+          dosagem: ['1 AMP', '2 AMP', '1 CP'],
+          via: ['ORAL'],
+          posologia: ['8/8H', '12/12H', 'SE PA>180/100mmHg'],
+          obs: ['12/12H', 'ACM']
+        }
+      },
+      {
+        id: uuidv4(),
+        nome: 'CLONIDINA',
+        dosagem: '1AMP',
+        via: 'ORAL',
+        posologia: '8/8H',
+        obs: '12/12H',
+        categoria: 'ANTI-HIPERTENSIVO',
+        prioridade: 'ALTA',
+        variacoes: {
+          nome: ['CLONIDINA'],
+          dosagem: ['1AMP'],
+          via: ['ORAL'],
+          posologia: ['8/8H', '12/12H', 'AGORA SE PA>180/100mmHg'],
           obs: ['12/12H', 'ACM']
         }
       }
@@ -399,7 +467,7 @@ export const medicacoesPorCategoria: CategoriaItem[] = [
         via: 'INTRAMUSCULAR',
         posologia: '8/8H',
         obs: '',
-        categoria: 'antipsicótico',
+        categoria: 'ANTI-PSICÓTICO',
         prioridade: 'BAIXA',
         variacoes: {
           nome: ['HADOL'],
@@ -416,7 +484,7 @@ export const medicacoesPorCategoria: CategoriaItem[] = [
         via: 'INTRAMUSCULAR',
         posologia: '8/8H',
         obs: '',
-        categoria: 'antipsicótico',
+        categoria: 'ANTI-PSICÓTICO',
         prioridade: 'BAIXA',
         variacoes: {
           nome: ['PROMETAZINA'],
@@ -433,7 +501,7 @@ export const medicacoesPorCategoria: CategoriaItem[] = [
         via: 'ORAL',
         posologia: 'NOITE',
         obs: '',
-        categoria: 'antipsicótico',
+        categoria: 'ANTI-PSICÓTICO',
         prioridade: 'BAIXA',
         variacoes: {
           nome: ['CLONAZEPAM'],
@@ -450,7 +518,7 @@ export const medicacoesPorCategoria: CategoriaItem[] = [
         via: 'VENOSA',
         posologia: 'NOITE',
         obs: '',
-        categoria: 'antipsicótico',
+        categoria: 'ANTI-PSICÓTICO',
         prioridade: 'BAIXA',
         variacoes: {
           nome: ['DIAZEPAM'],

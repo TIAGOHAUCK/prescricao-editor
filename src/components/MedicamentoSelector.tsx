@@ -4,19 +4,16 @@ import {
   DialogTitle,
   DialogContent,
   List,
-  ListItem,
-  ListItemText,
   ListItemButton,
+  ListItemText,
   Collapse,
-  Typography,
-  IconButton,
-  Box
+  Typography
 } from '@mui/material';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { medicacoesFixas } from '../data/medicacoesFixas';
-import { Medicamento } from '../types/prescricao';
 import { v4 as uuidv4 } from 'uuid';
+import { Medicamento } from '../types/prescricao';
+import { medicacaoService } from '../services/medicacaoService';
 
 interface MedicamentoSelectorProps {
   open: boolean;
@@ -30,18 +27,45 @@ const MedicamentoSelector: React.FC<MedicamentoSelectorProps> = ({
   onSelect
 }) => {
   const [expandedCategory, setExpandedCategory] = React.useState<string | null>(null);
+  const [medicacoesCadastradas, setMedicacoesCadastradas] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    // Carregar medicações cadastradas
+    const medicacoes = medicacaoService.getAll();
+    setMedicacoesCadastradas(medicacoes);
+  }, []);
 
   // Agrupar medicamentos por categoria
   const medicamentosPorCategoria = React.useMemo(() => {
-    return medicacoesFixas.reduce((acc, med) => {
-      const categoria = med.categoria || 'Outros';
+    const todasMedicacoes = [
+      ...medicacoesFixas,
+      ...medicacoesCadastradas.map(med => ({
+        id: med.id,
+        ordem: 999, // Ordem alta para aparecer depois das fixas
+        nome: med.nome,
+        dosagem: med.dosagem || '',
+        via: med.via || '',
+        posologia: med.posologia || '',
+        obs: med.observacoes || '',
+        categoria: med.categoria === 'ANTIHIPERTENSIVOS' ? 'Anti-hipertensivos' : med.categoria,
+        prioridade: 'BAIXA' as const,
+      }))
+    ];
+
+    return todasMedicacoes.reduce((acc, med) => {
+      // Normaliza a categoria de anti-hipertensivos
+      let categoria = med.categoria || 'Outros';
+      if (categoria === 'ANTIHIPERTENSIVOS') {
+        categoria = 'Anti-hipertensivos';
+      }
+      
       if (!acc[categoria]) {
         acc[categoria] = [];
       }
       acc[categoria].push(med);
       return acc;
-    }, {} as Record<string, typeof medicacoesFixas>);
-  }, []);
+    }, {} as Record<string, typeof todasMedicacoes>);
+  }, [medicacoesCadastradas]);
 
   const handleCategoryClick = (categoria: string) => {
     setExpandedCategory(expandedCategory === categoria ? null : categoria);
@@ -80,34 +104,15 @@ const MedicamentoSelector: React.FC<MedicamentoSelectorProps> = ({
               </ListItemButton>
               <Collapse in={expandedCategory === categoria} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  {medicamentos.map((med) => (
+                  {medicamentos.map((medicamento) => (
                     <ListItemButton
-                      key={med.id}
+                      key={medicamento.id}
                       sx={{ pl: 4 }}
-                      onClick={() => handleMedicamentoSelect(med)}
+                      onClick={() => handleMedicamentoSelect(medicamento)}
                     >
                       <ListItemText
-                        primary={med.nome}
-                        secondary={
-                          <Box component="span">
-                            <Typography variant="body2" color="text.secondary">
-                              {med.dosagem} - {med.via} - {med.posologia}
-                            </Typography>
-                            {med.prioridade && (
-                              <Typography
-                                variant="caption"
-                                sx={{
-                                  ml: 1,
-                                  color: med.prioridade === 'ALTA' ? 'error.main' :
-                                        med.prioridade === 'MODERADA' ? 'warning.main' :
-                                        'info.main'
-                                }}
-                              >
-                                ({med.prioridade})
-                              </Typography>
-                            )}
-                          </Box>
-                        }
+                        primary={medicamento.nome}
+                        secondary={`${medicamento.dosagem} - ${medicamento.via} - ${medicamento.posologia || '-'}`}
                       />
                     </ListItemButton>
                   ))}
